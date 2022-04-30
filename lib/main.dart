@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:search_github_repositories/provider.dart';
+import 'package:search_github_repositories/view/repositories_tile.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -43,9 +44,12 @@ class MyHomePage extends ConsumerWidget {
               child: ListView.builder(
                   itemCount: inputText?.items.length ?? 0,
                   itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(inputText?.items[index].name ?? 'null'),
-                  );
+                    if(inputText != null) {
+                      return RepositoriesTile(repository: inputText.items[index]);
+                    }
+                    else {
+                      return const ListTile(title: Text('No data'),);
+                    }
                   }
               ),
             ),
