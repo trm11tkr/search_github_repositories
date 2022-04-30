@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:search_github_repositories/controller/app_controller.dart';
 import 'package:search_github_repositories/provider.dart';
 import 'package:search_github_repositories/view/repositories_tile.dart';
 
@@ -28,6 +29,7 @@ class MyHomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final inputText = ref.watch(apiProvider).asData?.value;
+    final AppController controller = AppController();
 
     return Scaffold(
       appBar: AppBar(
@@ -38,14 +40,14 @@ class MyHomePage extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TextField(
-              onChanged: (text) => onInputTextChanged(ref, text),
+              onChanged: (text) => controller.onInputTextChanged(ref, text),
             ),
             Flexible(
               child: ListView.builder(
                   itemCount: inputText?.items.length ?? 0,
                   itemBuilder: (context, index) {
                     if(inputText != null) {
-                      return RepositoriesTile(repository: inputText.items[index]);
+                      return RepositoriesTile(repository: inputText.items[index], controller: controller);
                     }
                     else {
                       return const ListTile(title: Text('No data'),);
@@ -58,13 +60,5 @@ class MyHomePage extends ConsumerWidget {
         ),
       ),
     );
-  }
-}
-
-void onInputTextChanged(WidgetRef ref, String text) {
-  try {
-    ref.watch(inputTextProvider.state).state = text;
-  } catch (ex) {
-    print(ex.toString());
   }
 }

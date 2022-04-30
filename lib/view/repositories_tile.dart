@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:search_github_repositories/data/api_response.dart';
+import 'package:search_github_repositories/controller/app_controller.dart';
 
 
 class RepositoriesTile extends StatelessWidget {
   const RepositoriesTile({
-    Key? key, required this.repository}
+    Key? key, required this.controller, required this.repository}
       ) : super(key: key);
   final Repository repository;
+  final AppController controller;
 
   @override
   Widget build(BuildContext context) {
     final language = repository.language ?? "";
     return GestureDetector(
-      onTap: () {},
+      onTap: () {controller.route(context, repository);},
       child: Column(
         children: [
           Padding(
