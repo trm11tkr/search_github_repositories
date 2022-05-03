@@ -41,6 +41,17 @@ class RepositoriesDetail extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+            Container(
+              height: 1.0,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0
+                  ),
+                ),
+              ),
+            ),
             DetailTile(key: 'Repository', value: repository.name, first: true)
                 .buildTile(),
             DetailTile(
@@ -62,6 +73,17 @@ class RepositoriesDetail extends StatelessWidget {
                     value: repository.open_issues_count.toString(),
                     last: true)
                 .buildTile(),
+            Container(
+              height: 1.0,
+              decoration: BoxDecoration(
+                border: Border(
+                  top: BorderSide(
+                      color: Colors.grey.shade400,
+                      width: 1.0
+                  ),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -88,51 +110,42 @@ class DetailTile {
   }
 
   Widget buildTile() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Expanded(
-            flex: 1,
-            child: (first)
-                ? Container(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+              flex: 1,
+              child: Container(
+                padding: const EdgeInsets.only(top: 5, bottom: 5),
+                child: Text(
+                  key,
+                  style: const TextStyle(fontSize: 15),
+                ),
+              )),
+          Expanded(
+            flex: 3,
+            child: Container(
+              padding: const EdgeInsets.only(top: 5, bottom: 5),
+              decoration: (first)
+                  ? null
+                  : BoxDecoration(
                       border: Border(
                         top: BorderSide(
                           color: Colors.grey.shade400,
+                          width: 1.0
                         ),
                       ),
                     ),
-                    child: Text(
-                      key,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                  )
-                : Container(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    child: Text(
-                      key,
-                      style: const TextStyle(fontSize: 15),
-                    ),
-                  )),
-        Expanded(
-          flex: 3,
-          child: Container(
-            padding: const EdgeInsets.only(top: 5, bottom: 5),
-            decoration: BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: Colors.grey.shade400,
-                ),
+              child: Text(
+                value,
+                style: const TextStyle(fontSize: 15),
               ),
             ),
-            child: Text(
-              value,
-              style: const TextStyle(fontSize: 15),
-            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
